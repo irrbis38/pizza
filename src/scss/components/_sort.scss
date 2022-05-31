@@ -8,6 +8,7 @@
 
     svg {
       margin-right: 8px;
+      transition: transform .1s linear;
     }
 
     b {
@@ -18,6 +19,12 @@
       color: $orange;
       border-bottom: 1px dashed $orange;
       cursor: pointer;
+    }
+  }
+
+  &__label.active {
+    svg {      
+      transform: rotate(180deg);
     }
   }
 
