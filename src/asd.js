@@ -1,4 +1,4 @@
-export const pizzas = [
+const pizzas = [
   {
     id: 0,
     imageUrl:
@@ -110,3 +110,5 @@ export const pizzas = [
     rating: 7,
   },
 ];
+
+console.dir(JSON.stringify(pizzas));
