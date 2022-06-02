@@ -1,0 +1,13 @@
+.notFound {
+  padding: 100px 50px;
+  text-align: center;
+
+  & span {
+    font-size: 48px;
+  }
+
+  & h2 {
+    font-size: 48px;
+    margin-bottom: 40px;
+  }
+}
