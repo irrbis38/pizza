@@ -1,7 +1,6 @@
-@import './variables';
-@import './libs/normalize';
-
-@import './components/all';
+@import "./variables";
+@import "./libs/normalize";
+@import "./components/all";
 
 body {
   background-color: $background;
@@ -16,6 +15,13 @@ body {
   max-width: 1400px;
 }
 
+@media (max-width: 520px) {
+  .wrapper {
+    width: calc(100vw - 30px);
+    margin-top: 15px;
+  }
+}
+
 .content {
   padding: 40px 0;
 
@@ -24,15 +30,41 @@ body {
   }
 
   &__items {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 50px 20px;
+    justify-content: center;
+    justify-items: center;
   }
 
   &__top {
     display: flex;
     align-items: center;
     justify-content: space-between;
+  }
+
+  @media (max-width: 1440px) {
+    &__items {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: 1290px) {
+    &__top {
+      display: block;
+    }
+  }
+
+  @media (max-width: 1140px) {
+    &__items {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    &__items {
+      grid-template-columns: repeat(1, 1fr);
+    }
   }
 }
 
@@ -54,6 +86,10 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+
+  & .content__items {
+    display: block !important;
   }
 
   .content__title {

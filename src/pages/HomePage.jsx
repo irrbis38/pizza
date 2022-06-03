@@ -16,6 +16,7 @@ function HomePage() {
         setItems(data);
         setIsLoading(false);
       });
+    window.scrollTo(0, 0);
   }, []);
 
   const pizzasList = items.map((pizza) => (

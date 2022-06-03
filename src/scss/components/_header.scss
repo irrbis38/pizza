@@ -1,14 +1,8 @@
-@import './../variables';
+@import "./../variables";
 
 .header {
   border-bottom: 1px solid $gray-line;
   padding: 40px 0;
-
-  .container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
 
   &__logo {
     display: flex;
@@ -28,5 +22,30 @@
     p {
       color: #7b7b7b;
     }
+  }
+}
+
+.header__wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@media (max-width: 700px) {
+  .header {
+    padding: 40px 0 0 0;
+  }
+
+  .header__wrapper {
+    display: block;
+  }
+
+  .header__logo {
+    margin-bottom: 30px;
+  }
+
+  .header__cart {
+    width: 160px;
+    justify-self: flex-end;
   }
 }
