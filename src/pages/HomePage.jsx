@@ -6,20 +6,30 @@ import Sort from "../components/Sort";
 import Skeleton from "../components/PizzaBlock/Skeleton";
 
 function HomePage() {
+  const sortList = [
+    { name: "популярности", sortType: "range" },
+    { name: "цене", sortType: "price" },
+    { name: "алфавиту", sortType: "title" },
+  ];
   const [items, setItems] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
   const [activeCategory, setActiveCategory] = React.useState(0);
+  const [selectedSortType, setSelectedSortType] = React.useState(0);
 
   const changeCategoryHandler = (i) => {
     setActiveCategory(i);
   };
 
+  const changeSortTypeHandler = (i) => {
+    setSelectedSortType(i);
+  };
+
   React.useEffect(() => {
     setIsLoading(true);
     fetch(
-      `https://61fa2a3031f9c2001759668d.mockapi.io/items${
-        activeCategory > 0 ? `?category=${activeCategory}` : ""
-      }`
+      `https://61fa2a3031f9c2001759668d.mockapi.io/items?${
+        activeCategory > 0 ? `category=${activeCategory}` : ""
+      }&sortBy=${sortList[selectedSortType].sortType}&order=desc`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -27,7 +37,7 @@ function HomePage() {
         setIsLoading(false);
       });
     window.scrollTo(0, 0);
-  }, [activeCategory]);
+  }, [activeCategory, selectedSortType]);
 
   const pizzasList = items.map((pizza) => (
     <PizzaBlock key={pizza.id} {...pizza} />
@@ -44,7 +54,11 @@ function HomePage() {
           activeCategory={activeCategory}
           changeCategoryHandler={changeCategoryHandler}
         />
-        <Sort />
+        <Sort
+          selectedSortType={selectedSortType}
+          changeSortTypeHandler={changeSortTypeHandler}
+          sortList={sortList}
+        />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">

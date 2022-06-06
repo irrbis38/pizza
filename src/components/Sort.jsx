@@ -1,24 +1,20 @@
 import React from "react";
-function Sort() {
-  const sortList = ["популярности", "цене", "алфавиту"];
+function Sort({ sortList, selectedSortType, changeSortTypeHandler }) {
   const [isVisible, setIsVisible] = React.useState(false);
-  const [selectedSortType, setSelectedSortType] = React.useState(0);
-  const [sortName, setSortName] = React.useState(sortList[0]);
 
-  const selectType = (index) => {
-    setSelectedSortType(index);
+  const onSelectType = (index) => {
+    changeSortTypeHandler(index);
     setIsVisible(false);
-    setSortName(sortList[index]);
   };
 
-  const renderSortList = sortList.map((sortType, i) => {
+  const renderSortList = sortList.map((item, i) => {
     return (
       <li
-        key={sortType}
+        key={item.sortType}
         className={selectedSortType === i ? "active" : ""}
-        onClick={() => selectType(i)}
+        onClick={() => onSelectType(i)}
       >
-        {sortType}
+        {item.name}
       </li>
     );
   });
@@ -39,7 +35,9 @@ function Sort() {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setIsVisible(!isVisible)}>{sortName}</span>
+        <span onClick={() => setIsVisible(!isVisible)}>
+          {sortList[selectedSortType].name}
+        </span>
       </div>
       {isVisible && (
         <div className="sort__popup">
