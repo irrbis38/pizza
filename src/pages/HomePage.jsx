@@ -5,12 +5,13 @@ import PizzaBlock from "../components/PizzaBlock";
 import Sort from "../components/Sort";
 import Skeleton from "../components/PizzaBlock/Skeleton";
 
-function HomePage() {
-  const sortList = [
-    { name: "популярности", sortType: "range" },
-    { name: "цене", sortType: "price" },
-    { name: "алфавиту", sortType: "title" },
-  ];
+const sortList = [
+  { name: "популярности", sortType: "range" },
+  { name: "цене", sortType: "price" },
+  { name: "алфавиту", sortType: "title" },
+];
+
+function HomePage({ searchValue }) {
   const [items, setItems] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
   const [activeCategory, setActiveCategory] = React.useState(0);
@@ -39,9 +40,14 @@ function HomePage() {
     window.scrollTo(0, 0);
   }, [activeCategory, selectedSortType]);
 
-  const pizzasList = items.map((pizza) => (
-    <PizzaBlock key={pizza.id} {...pizza} />
-  ));
+  const pizzasList = items
+    .filter((pizza) => {
+      if (pizza.title.toLowerCase().includes(searchValue.toLowerCase())) {
+        return true;
+      }
+      return false;
+    })
+    .map((pizza) => <PizzaBlock key={pizza.id} {...pizza} />);
 
   const skeletonList = [...new Array(6)].map((_, index) => (
     <Skeleton key={index} />
