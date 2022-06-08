@@ -1,0 +1,40 @@
+.root {
+  padding: 40px 0;
+
+  ul {
+    max-width: 250px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+  }
+
+  li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.1s ease-in-out;
+
+    a {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid #fe5f1e;
+      color: #fe5f1e;
+      text-align: center;
+      padding-top: 8px;
+      transition: all 0.1s ease-in-out;
+    }
+
+    &:hover a {
+      color: #fff;
+      background-color: #fe5f1e;
+    }
+  }
+
+  .selected a {
+    background-color: #fe5f1e;
+    color: #fff;
+  }
+}
