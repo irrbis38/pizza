@@ -39,7 +39,7 @@ function HomePage() {
     setIsLoading(true);
     fetch(
       `https://61fa2a3031f9c2001759668d.mockapi.io/items?${pizzasPerPage}${
-        activeCategory > 0 ? `category=${activeCategory}` : ""
+        activeCategory > 0 ? `&filter=category${activeCategory}` : ""
       }&sortBy=${sortList[selectedSortType].sortType}&order=desc`
     )
       .then((res) => res.json())
