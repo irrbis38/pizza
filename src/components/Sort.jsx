@@ -1,9 +1,20 @@
 import React from "react";
-function Sort({ sortList, selectedSortType, changeSortTypeHandler }) {
+import { useSelector, useDispatch } from "react-redux";
+import { setSelectedSortType } from "./../redux/slices/filterSlice";
+
+function Sort({ sortList }) {
+  const dispatch = useDispatch();
+  const selectedSortType = useSelector(
+    (state) => state.filterReducer.selectedSortType
+  );
+
+  console.log(selectedSortType);
+
   const [isVisible, setIsVisible] = React.useState(false);
 
   const onSelectType = (index) => {
-    changeSortTypeHandler(index);
+    // changeSortTypeHandler(index);
+    dispatch(setSelectedSortType(index));
     setIsVisible(false);
   };
 

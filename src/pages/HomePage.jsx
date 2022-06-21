@@ -15,20 +15,15 @@ const sortList = [
 ];
 
 function HomePage() {
-  const activeCategory = useSelector(
-    (state) => state.filterReducer.activeCategory
+  const { activeCategory, selectedSortType } = useSelector(
+    (state) => state.filterReducer
   );
 
   const { searchValue } = React.useContext(SearchContext);
 
   const [items, setItems] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
-  const [selectedSortType, setSelectedSortType] = React.useState(0);
   const [pageNumber, setPageNumber] = React.useState(1);
-
-  const changeSortTypeHandler = (i) => {
-    setSelectedSortType(i);
-  };
 
   const pizzasPerPage = `page=${pageNumber}&limit=4`;
   const changePage = (number) => {
@@ -40,7 +35,7 @@ function HomePage() {
     fetch(
       `https://61fa2a3031f9c2001759668d.mockapi.io/items?${pizzasPerPage}${
         activeCategory > 0 ? `&filter=category${activeCategory}` : ""
-      }&sortBy=${sortList[selectedSortType].sortType}&order=desc`
+      }&sortBy=${sortList[selectedSortType].sortType}&order=asc`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -67,11 +62,7 @@ function HomePage() {
     <>
       <div className="content__top">
         <Categories />
-        <Sort
-          selectedSortType={selectedSortType}
-          changeSortTypeHandler={changeSortTypeHandler}
-          sortList={sortList}
-        />
+        <Sort sortList={sortList} />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">
