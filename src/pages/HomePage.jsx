@@ -6,6 +6,7 @@ import Sort from "../components/Sort";
 import Skeleton from "../components/PizzaBlock/Skeleton";
 import Pagination from "./../components/Pagination/Pagination";
 import { SearchContext } from "./../App";
+import { useSelector } from "react-redux";
 
 const sortList = [
   { name: "популярности", sortType: "range" },
@@ -14,17 +15,16 @@ const sortList = [
 ];
 
 function HomePage() {
+  const activeCategory = useSelector(
+    (state) => state.filterReducer.activeCategory
+  );
+
   const { searchValue } = React.useContext(SearchContext);
 
   const [items, setItems] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
-  const [activeCategory, setActiveCategory] = React.useState(0);
   const [selectedSortType, setSelectedSortType] = React.useState(0);
   const [pageNumber, setPageNumber] = React.useState(1);
-
-  const changeCategoryHandler = (i) => {
-    setActiveCategory(i);
-  };
 
   const changeSortTypeHandler = (i) => {
     setSelectedSortType(i);
@@ -66,10 +66,7 @@ function HomePage() {
   return (
     <>
       <div className="content__top">
-        <Categories
-          activeCategory={activeCategory}
-          changeCategoryHandler={changeCategoryHandler}
-        />
+        <Categories />
         <Sort
           selectedSortType={selectedSortType}
           changeSortTypeHandler={changeSortTypeHandler}
