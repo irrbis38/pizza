@@ -45,7 +45,7 @@ function Sort({ sortList }) {
             fill="#2C2C2C"
           />
         </svg>
-        <b>Сортировка по:</b>
+        <b>Сортировка:</b>
         <span onClick={() => setIsVisible(!isVisible)}>
           {sortList[selectedSortType].name}
         </span>

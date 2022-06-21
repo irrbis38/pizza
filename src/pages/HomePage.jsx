@@ -9,9 +9,10 @@ import { SearchContext } from "./../App";
 import { useSelector } from "react-redux";
 
 const sortList = [
-  { name: "популярности", sortType: "range" },
-  { name: "цене", sortType: "price" },
-  { name: "алфавиту", sortType: "title" },
+  { name: "популярные", sortType: "range", direction: "desc" },
+  { name: "дешёвые", sortType: "price", direction: "asc" },
+  { name: "дорогие", sortType: "price", direction: "desc" },
+  { name: "по алфавиту", sortType: "title", direction: "asc" },
 ];
 
 function HomePage() {
@@ -35,7 +36,9 @@ function HomePage() {
     fetch(
       `https://61fa2a3031f9c2001759668d.mockapi.io/items?${pizzasPerPage}${
         activeCategory > 0 ? `&filter=category${activeCategory}` : ""
-      }&sortBy=${sortList[selectedSortType].sortType}&order=asc`
+      }&sortBy=${sortList[selectedSortType].sortType}&order=${
+        sortList[selectedSortType].direction
+      }`
     )
       .then((res) => res.json())
       .then((data) => {
