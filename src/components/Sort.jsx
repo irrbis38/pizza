@@ -8,8 +8,6 @@ function Sort({ sortList }) {
     (state) => state.filterReducer.selectedSortType
   );
 
-  console.log(selectedSortType);
-
   const [isVisible, setIsVisible] = React.useState(false);
 
   const onSelectType = (index) => {

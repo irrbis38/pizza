@@ -1,5 +1,7 @@
 import React from "react";
 
+import axios from "axios";
+
 import Categories from "../components/Categories";
 import PizzaBlock from "../components/PizzaBlock";
 import Sort from "../components/Sort";
@@ -33,16 +35,16 @@ function HomePage() {
 
   React.useEffect(() => {
     setIsLoading(true);
-    fetch(
-      `https://61fa2a3031f9c2001759668d.mockapi.io/items?${pizzasPerPage}${
-        activeCategory > 0 ? `&filter=category${activeCategory}` : ""
-      }&sortBy=${sortList[selectedSortType].sortType}&order=${
-        sortList[selectedSortType].direction
-      }`
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        setItems(data);
+    axios
+      .get(
+        `https://61fa2a3031f9c2001759668d.mockapi.io/items?${pizzasPerPage}${
+          activeCategory > 0 ? `&filter=category${activeCategory}` : ""
+        }&sortBy=${sortList[selectedSortType].sortType}&order=${
+          sortList[selectedSortType].direction
+        }`
+      )
+      .then((res) => {
+        setItems(res.data);
         setIsLoading(false);
       });
     window.scrollTo(0, 0);
