@@ -1,15 +1,34 @@
 import React from "react";
 
+import debounce from "lodash.debounce";
+
 import styles from "./Search.module.scss";
 import { SearchContext } from "./../../App";
 
 function Search() {
-  const { searchValue, setSearchValue } = React.useContext(SearchContext);
+  const { setSearchValue } = React.useContext(SearchContext);
+
+  // Local state just for create controll input
+  const [value, setValue] = React.useState("");
+
   const inputRef = React.useRef();
 
   const onClickClear = () => {
+    setValue("");
     setSearchValue("");
     inputRef.current.focus();
+  };
+
+  const changeWithDelay = React.useCallback(
+    debounce((str) => {
+      setSearchValue(str);
+    }, 250),
+    []
+  );
+
+  const searchHandler = (e) => {
+    setValue(e.target.value);
+    changeWithDelay(e.target.value);
   };
 
   return (
@@ -50,13 +69,13 @@ function Search() {
       </svg>
       <input
         ref={inputRef}
-        onChange={(e) => setSearchValue(e.target.value)}
-        value={searchValue}
+        onChange={(e) => searchHandler(e)}
+        value={value}
         type="text"
         placeholder="Поиск пиццы..."
         className={styles.input}
       />
-      {searchValue && (
+      {value && (
         <svg
           onClick={onClickClear}
           className={styles.close}
